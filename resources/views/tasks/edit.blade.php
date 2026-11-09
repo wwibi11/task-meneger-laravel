@@ -4,31 +4,38 @@
 
 @section('content')
 
-    <h2>Edit Tugas</h2>
+    <div class="page-header">
+        <h2>Edit Tugas</h2>
+        <a href="{{ route('tasks.index') }}" class="btn btn-secondary">← Kembali</a>
+    </div>
 
-    <form method="POST" action="{{ route('tasks.update', $task) }}" class="form">
+    <form method="POST" action="{{ route('tasks.update', $task) }}" class="form-container">
         @csrf
         @method('PUT')
 
-        <label>
-            Judul *
-            <input type="text" name="judul" value="{{ old('judul', $task->judul) }}" required>
+        <div class="form-group">
+            <label for="judul">Judul <span class="required">*</span></label>
+            <input type="text" name="judul" id="judul"
+                   class="form-control @error('judul') is-invalid @enderror"
+                   value="{{ old('judul', $task->judul) }}" required>
             @error('judul')
-                <span class="text-danger">{{ $message }}</span>
+                <div class="error-message">⚠ {{ $message }}</div>
             @enderror
-        </label>
+        </div>
 
-        <label>
-            Deskripsi
-            <textarea name="deskripsi" rows="4">{{ old('deskripsi', $task->deskripsi) }}</textarea>
+        <div class="form-group">
+            <label for="deskripsi">Deskripsi</label>
+            <textarea name="deskripsi" id="deskripsi" rows="4"
+                      class="form-control @error('deskripsi') is-invalid @enderror">{{ old('deskripsi', $task->deskripsi) }}</textarea>
             @error('deskripsi')
-                <span class="text-danger">{{ $message }}</span>
+                <div class="error-message">⚠ {{ $message }}</div>
             @enderror
-        </label>
+        </div>
 
-        <label>
-            Prioritas *
-            <select name="prioritas">
+        <div class="form-group">
+            <label for="prioritas">Prioritas <span class="required">*</span></label>
+            <select name="prioritas" id="prioritas"
+                    class="form-control @error('prioritas') is-invalid @enderror">
                 @foreach (['rendah', 'sedang', 'tinggi'] as $p)
                     <option value="{{ $p }}" {{ old('prioritas', $task->prioritas) === $p ? 'selected' : '' }}>
                         {{ ucfirst($p) }}
@@ -36,20 +43,22 @@
                 @endforeach
             </select>
             @error('prioritas')
-                <span class="text-danger">{{ $message }}</span>
+                <div class="error-message">⚠ {{ $message }}</div>
             @enderror
-        </label>
+        </div>
 
-        <label>
-            Deadline
-            <input type="date" name="deadline" value="{{ old('deadline', $task->deadline) }}">
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input type="date" name="deadline" id="deadline"
+                   class="form-control @error('deadline') is-invalid @enderror"
+                   value="{{ old('deadline', $task->deadline) }}">
             @error('deadline')
-                <span class="text-danger">{{ $message }}</span>
+                <div class="error-message">⚠ {{ $message }}</div>
             @enderror
-        </label>
+        </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">💾 Update</button>
             <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Batal</a>
         </div>
     </form>
