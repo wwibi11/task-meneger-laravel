@@ -1,10 +1,3 @@
-# 📄 README.md — Saja
-
-Langsung copy-paste ke `README.md` di root project.
-
----
-
-```markdown
 # 📝 Task Manager — Laravel
 
 > Aplikasi manajemen tugas dengan Laravel 13 — hasil migrasi dari [versi PHP Native (PDO)](https://github.com/wwibi11/task-meneger-native).
@@ -253,13 +246,3 @@ Didistribusikan di bawah **MIT License**. Bebas digunakan untuk belajar.
 ```
 
 ---
-
-Tinggal copy-paste, simpan, lalu:
-
-```powershell
-git add README.md
-git commit -m "docs: add comprehensive README"
-git push
-```
-
-Kalau mau lanjut ke **filter + sorting**, tinggal bilang. 🚀
