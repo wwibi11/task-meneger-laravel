@@ -238,9 +238,5 @@ Proyek ini dibuat sebagai **latihan migrasi dari PHP Native ke Laravel**. Konsep
 
 Didistribusikan di bawah **MIT License**. Bebas digunakan untuk belajar.
 
----
-
-<p align="center">
-  Dibuat dengan ❤️ sebagai latihan migrasi dari PHP Native ke Laravel
-</p>
+Dibuat dengan ❤️ sebagai latihan migrasi dari PHP Native ke Laravel
 ---
