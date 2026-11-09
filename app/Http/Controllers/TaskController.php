@@ -81,6 +81,7 @@ class TaskController extends Controller
             ->with('success', 'Tugas berhasil dihapus.');
     }
 
+
     // Toggle status selesai/belum
     public function toggle(Task $task)
     {
@@ -92,4 +93,5 @@ class TaskController extends Controller
             ->route('tasks.index')
             ->with('success', 'Status tugas diperbarui.');
     }
+    
 }
