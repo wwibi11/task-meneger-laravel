@@ -1,58 +1,265 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📄 README.md — Saja
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Langsung copy-paste ke `README.md` di root project.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```markdown
+# 📝 Task Manager — Laravel
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> Aplikasi manajemen tugas dengan Laravel 13 — hasil migrasi dari [versi PHP Native (PDO)](https://github.com/wwibi11/task-meneger-native).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)](https://www.php.net/)
+[![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📋 Daftar Isi
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- [Tentang Proyek](#-tentang-proyek)
+- [Fitur](#-fitur)
+- [Teknologi](#-teknologi)
+- [Struktur Folder Penting](#-struktur-folder-penting)
+- [Instalasi](#-instalasi)
+- [Cara Menjalankan](#-cara-menjalankan)
+- [Perbandingan dengan Versi Native](#-perbandingan-dengan-versi-native)
+- [Tujuan Pembelajaran](#-tujuan-pembelajaran)
+- [Roadmap](#️-roadmap)
+- [Lisensi](#-lisensi)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## 🎯 Tentang Proyek
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+**Task Manager** adalah aplikasi CRUD tugas yang dibangun dengan **Laravel 13** sebagai kelanjutan dari [versi PHP Native (PDO)](https://github.com/wwibi11/task-meneger-native).
 
-```bash
-composer require laravel/boost --dev
+Aplikasi yang sama — CRUD tugas dengan prioritas, deadline, filter, sorting, dan statistik — tapi diimplementasikan ulang memakai **Eloquent ORM**, **Blade Template**, **Migration**, dan **Resource Controller**.
 
-php artisan boost:install
+Tujuan utamanya bukan menambah fitur baru, melainkan **membandingkan langsung** bagaimana konsep yang ditulis manual di PHP native (PDO, validasi manual, `header()` redirect, escape HTML) menjadi jauh lebih ringkas dan ekspresif di Laravel.
+
+---
+
+## ✨ Fitur
+
+| Fitur | Deskripsi |
+|-------|-----------|
+| ✅ **CRUD Task** | Tambah, lihat, edit, dan hapus tugas |
+| 🎯 **Prioritas** | Rendah, Sedang, Tinggi dengan badge berwarna |
+| 📅 **Deadline** | Deteksi otomatis tugas yang sudah terlambat |
+| 🔄 **Toggle Status** | Tandai selesai / belum selesai dengan satu klik |
+| 📊 **Statistik Ringkas** | Total, selesai, belum, dan terlambat |
+| 🎨 **Tampilan Modern** | Card dengan hover, badge emoji, form responsif |
+| 🛡️ **Validasi Otomatis** | Menggunakan `$request->validate()` |
+| 🔒 **CSRF Protection** | Setiap form dilindungi token `@csrf` |
+
+---
+
+## 🧰 Teknologi
+
+| Komponen | Keterangan |
+|----------|------------|
+| **PHP** | 8.3+ |
+| **Framework** | Laravel 13.x |
+| **Database** | MySQL / MariaDB |
+| **ORM** | Eloquent |
+| **Template** | Blade |
+| **CSS** | Custom (tanpa framework) |
+| **Build Tool** | Vite (bawaan Laravel) |
+
+---
+
+## 📁 Struktur Folder Penting
+
+```
+task-manager-laravel/
+├── app/
+│   ├── Http/Controllers/
+│   │   └── TaskController.php          # Semua logika CRUD
+│   └── Models/
+│       └── Task.php                    # Model Eloquent
+│
+├── database/
+│   └── migrations/
+│       └── xxxx_create_tasks_table.php # Struktur tabel daftar_tugas
+│
+├── public/
+│   └── css/
+│       └── style.css                   # Stylesheet
+│
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php           # Layout utama
+│       ├── index.blade.php             # Daftar tugas
+│       └── tasks/
+│           ├── create.blade.php        # Form tambah
+│           └── edit.blade.php          # Form edit
+│
+├── routes/
+│   └── web.php                         # Route resource + toggle
+│
+├── .env                                # Konfigurasi (DB, app key, dll)
+├── .env.example                        # Template .env
+└── README.md
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## 🚀 Instalasi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone Repository
 
-## Code of Conduct
+```bash
+git clone https://github.com/wwibi11/task-manager-laravel.git
+cd task-manager-laravel
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Install Dependency
 
-## Security Vulnerabilities
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Salin `.env` & Generate Key
 
-## License
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Buat Database
+
+Buat database `task_manager_laravel` di MySQL / phpMyAdmin:
+
+```sql
+CREATE DATABASE task_manager_laravel;
+```
+
+### 5. Sesuaikan Kredensial DB di `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=task_manager_laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 6. Jalankan Migrasi
+
+```bash
+php artisan migrate
+```
+
+### 7. Jalankan Server
+
+```bash
+php artisan serve
+```
+
+Buka `http://127.0.0.1:8000/tasks`.
+
+---
+
+## 🖥️ Cara Menjalankan
+
+### Dengan `php artisan serve`
+
+```bash
+php artisan serve
+```
+
+Buka `http://127.0.0.1:8000`.
+
+### Dengan Laragon / XAMPP
+
+Pindahkan folder project ke `www/` (Laragon) atau `htdocs/` (XAMPP), lalu akses lewat virtual host atau `http://localhost/task-manager-laravel/public`.
+
+---
+
+## 🔄 Perbandingan dengan Versi Native
+
+Ini bagian yang paling menarik — implementasi yang sama, ditulis dengan dua pendekatan berbeda.
+
+| Konsep | PHP Native | Laravel |
+|--------|------------|---------|
+| Koneksi DB | `new PDO(...)` manual | Otomatis via `.env` |
+| Query data | `$pdo->query("SELECT * FROM ...")` | `Task::all()` |
+| Insert | `$pdo->prepare("INSERT ...")` | `Task::create($data)` |
+| Update | `$pdo->prepare("UPDATE ...")` | `$task->update($data)` |
+| Delete | `$pdo->prepare("DELETE ...")` | `$task->delete()` |
+| Validasi | `if ($judul === '') { $error = '...' }` | `$request->validate(['judul' => 'required'])` |
+| Redirect | `header("Location: index.php")` | `return redirect()->route('tasks.index')` |
+| Escape HTML | `htmlspecialchars($var)` | `{{ $var }}` (otomatis) |
+| Layout | `require 'header.php'` | Blade `@extends('layouts.app')` |
+| Routing | Nama file = URL | `Route::resource('tasks', ...)` |
+| Form keamanan | Manual | `@csrf` (wajib) |
+| Method PUT/DELETE | Tidak didukung | `@method('PUT')` / `@method('DELETE')` |
+
+---
+
+## 🎓 Tujuan Pembelajaran
+
+Proyek ini dibuat sebagai **latihan migrasi dari PHP Native ke Laravel**. Konsep yang dilatih:
+
+- **Eloquent ORM** — menggantikan PDO manual
+- **Migration** — menggantikan `CREATE TABLE` via SQL
+- **Resource Controller** — menggantikan file-file `actions/*.php`
+- **Form Request / Validation** — menggantikan `if ($var === '')` manual
+- **Blade Template** — menggantikan `header.php` / `footer.php` + escape manual
+- **Named Routes** — menggantikan `header("Location: ...")`
+- **Mass Assignment** (`$fillable`) — menggantikan insert manual per kolom
+- **Method Spoofing** — `@method('PUT')` dan `@method('DELETE')`
+- **CSRF Protection** — keamanan form yang tidak ada di native
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Setup Laravel 13 + MySQL
+- [x] Model & Migration `Task`
+- [x] Resource Controller & Routes
+- [x] Blade layout + views (index, create, edit)
+- [x] Toggle status & delete
+- [x] Statistik ringkas
+- [x] Tampilan modern (card, badge, form responsif)
+- [ ] Filter status (`?filter=belum|selesai`)
+- [ ] Sorting dinamis (`?sort=deadline|prioritas|terbaru`)
+- [ ] Highlight task terlambat di card
+- [ ] Form Request untuk validasi
+- [ ] Feature Test (PHPUnit)
+- [ ] Auth (Breeze) — opsional
+
+---
+
+## 🔗 Repo Terkait
+
+- 📦 [Versi PHP Native (PDO)](https://github.com/wwibi11/task-meneger-native) — titik awal perjalanan belajar
+
+---
+
+## 📄 Lisensi
+
+Didistribusikan di bawah **MIT License**. Bebas digunakan untuk belajar.
+
+---
+
+<p align="center">
+  Dibuat dengan ❤️ sebagai latihan migrasi dari PHP Native ke Laravel
+</p>
+```
+
+---
+
+Tinggal copy-paste, simpan, lalu:
+
+```powershell
+git add README.md
+git commit -m "docs: add comprehensive README"
+git push
+```
+
+Kalau mau lanjut ke **filter + sorting**, tinggal bilang. 🚀
