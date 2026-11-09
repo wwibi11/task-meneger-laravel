@@ -1,35 +1,33 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Tugas</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>Edit Tugas</h1>
+@section('title', 'Edit Tugas')
 
-    <form method="POST" action="{{ route('tasks.update', $task) }}">
+@section('content')
+
+    <h2>Edit Tugas</h2>
+
+    <form method="POST" action="{{ route('tasks.update', $task) }}" class="form">
         @csrf
         @method('PUT')
 
-        <p>
-            <label>Judul *</label><br>
+        <label>
+            Judul *
             <input type="text" name="judul" value="{{ old('judul', $task->judul) }}" required>
             @error('judul')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <p>
-            <label>Deskripsi</label><br>
+        <label>
+            Deskripsi
             <textarea name="deskripsi" rows="4">{{ old('deskripsi', $task->deskripsi) }}</textarea>
             @error('deskripsi')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <p>
-            <label>Prioritas *</label><br>
+        <label>
+            Prioritas *
             <select name="prioritas">
                 @foreach (['rendah', 'sedang', 'tinggi'] as $p)
                     <option value="{{ $p }}" {{ old('prioritas', $task->prioritas) === $p ? 'selected' : '' }}>
@@ -38,21 +36,22 @@
                 @endforeach
             </select>
             @error('prioritas')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <p>
-            <label>Deadline</label><br>
+        <label>
+            Deadline
             <input type="date" name="deadline" value="{{ old('deadline', $task->deadline) }}">
             @error('deadline')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <button type="submit">Update</button>
-        <a href="{{ route('tasks.index') }}">Batal</a>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Batal</a>
+        </div>
     </form>
 
-</body>
-</html>
+@endsection

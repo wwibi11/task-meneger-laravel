@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Tambah Tugas</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>Tambah Tugas</h1>
+@section('title', 'Tambah Tugas')
 
-    <form method="POST" action="{{ route('tasks.store') }}">
+@section('content')
+
+    <h2>Tambah Tugas</h2>
+
+    <form method="POST" action="{{ route('tasks.store') }}" class="form">
         @csrf
 
-        <p>
-            <label>Judul *</label><br>
+        <label>
+            Judul *
             <input type="text" name="judul" value="{{ old('judul') }}" required>
             @error('judul')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <p>
-            <label>Deskripsi</label><br>
+        <label>
+            Deskripsi
             <textarea name="deskripsi" rows="4">{{ old('deskripsi') }}</textarea>
             @error('deskripsi')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <p>
-            <label>Prioritas *</label><br>
+        <label>
+            Prioritas *
             <select name="prioritas">
                 @foreach (['rendah', 'sedang', 'tinggi'] as $p)
                     <option value="{{ $p }}" {{ old('prioritas', 'sedang') === $p ? 'selected' : '' }}>
@@ -37,21 +35,22 @@
                 @endforeach
             </select>
             @error('prioritas')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <p>
-            <label>Deadline</label><br>
+        <label>
+            Deadline
             <input type="date" name="deadline" value="{{ old('deadline') }}">
             @error('deadline')
-                <br><small style="color:red">{{ $message }}</small>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
-        </p>
+        </label>
 
-        <button type="submit">Simpan</button>
-        <a href="{{ route('tasks.index') }}">Batal</a>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Batal</a>
+        </div>
     </form>
 
-</body>
-</html>
+@endsection

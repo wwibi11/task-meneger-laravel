@@ -1,79 +1,78 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Tugas</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>Daftar Tugas</h1>
+@section('title', 'Daftar Tugas')
 
-    {{-- Flash message --}}
-    @if (session('success'))
-        <p style="color: green; font-weight: bold;">
-            ✅ {{ session('success') }}
-        </p>
-    @endif
+@section('content')
 
-    {{-- Tombol tambah --}}
     <p>
-        <a href="{{ route('tasks.create') }}">+ Tambah Tugas</a>
+        <a href="{{ route('tasks.create') }}" class="btn btn-primary">+ Tambah Tugas</a>
     </p>
 
-    {{-- Daftar task --}}
     @forelse ($tasks as $task)
-        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+        <div class="task-card {{ $task->status === 'selesai' ? 'done' : '' }}">
 
-            {{-- Judul + indikator selesai --}}
-            <strong>{{ $task->judul }}</strong>
-            @if ($task->status === 'selesai')
-                <span style="color: green;">[✓ Selesai]</span>
-            @endif
+            {{-- Judul --}}
+            <p class="task-title">
+                {{ $task->judul }}
+                @if ($task->status === 'selesai')
+                    <span style="color: green;">[✓ Selesai]</span>
+                @endif
+            </p>
 
-            <br>
-
-            {{-- Info task --}}
-            <small>
-                Prioritas: <strong>{{ ucfirst($task->prioritas) }}</strong> |
-                Status: <strong>{{ ucfirst($task->status) }}</strong> |
+            {{-- Meta --}}
+            <p class="task-meta">
+                Prioritas:
+                @if ($task->prioritas === 'tinggi')
+                    <span class="badge badge-danger">Tinggi</span>
+                @elseif ($task->prioritas === 'sedang')
+                    <span class="badge badge-warning">Sedang</span>
+                @else
+                    <span class="badge badge-success">Rendah</span>
+                @endif
+                |
+                Status: {{ ucfirst($task->status) }} |
                 Deadline: {{ $task->deadline ?? '-' }}
-            </small>
+            </p>
 
             {{-- Deskripsi --}}
             @if ($task->deskripsi)
-                <p style="margin: 5px 0;">{{ $task->deskripsi }}</p>
+                <p class="task-desc">{{ $task->deskripsi }}</p>
             @endif
 
-            <br>
+            {{-- Aksi --}}
+            <div class="task-actions">
 
-            {{-- Tombol Toggle (kalau route tersedia) --}}
-            @if (Route::has('tasks.toggle'))
-                <form method="POST" action="{{ route('tasks.toggle', $task) }}" style="display:inline;">
+                {{-- Toggle --}}
+                @if (Route::has('tasks.toggle'))
+                    <form method="POST" action="{{ route('tasks.toggle', $task) }}" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-secondary btn-sm">
+                            {{ $task->status === 'selesai' ? 'Tandai Belum' : 'Tandai Selesai' }}
+                        </button>
+                    </form>
+                @endif
+
+                {{-- Edit --}}
+                <a href="{{ route('tasks.edit', $task) }}" class="btn btn-secondary btn-sm">Edit</a>
+
+                {{-- Hapus --}}
+                <form method="POST" action="{{ route('tasks.destroy', $task) }}"
+                      style="display:inline;"
+                      onsubmit="return confirm('Hapus tugas ini?')">
                     @csrf
-                    @method('PATCH')
-                    <button type="submit">
-                        {{ $task->status === 'selesai' ? 'Tandai Belum' : 'Tandai Selesai' }}
-                    </button>
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                 </form>
-            @endif
 
-            {{-- Tombol Edit --}}
-            <a href="{{ route('tasks.edit', $task) }}">Edit</a>
-
-            {{-- Tombol Hapus --}}
-            <form method="POST" action="{{ route('tasks.destroy', $task) }}"
-                  style="display:inline;"
-                  onsubmit="return confirm('Hapus tugas ini?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Hapus</button>
-            </form>
+            </div>
 
         </div>
     @empty
-        <p>Belum ada tugas. Klik "+ Tambah Tugas" untuk membuat yang pertama.</p>
+        <div class="empty">
+            <p>Belum ada tugas.</p>
+            <p>Klik <strong>+ Tambah Tugas</strong> untuk membuat yang pertama.</p>
+        </div>
     @endforelse
 
-</body>
-</html>
+@endsection
