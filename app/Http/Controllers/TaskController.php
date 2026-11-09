@@ -12,7 +12,7 @@ class TaskController extends Controller
     {
         $tasks = Task::latest()->get();
 
-        return view('tasks.index', [
+        return view('index', [
             'tasks' => $tasks,
         ]);
     }
