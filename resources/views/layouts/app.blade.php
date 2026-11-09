@@ -9,27 +9,38 @@
 <body>
 
 <header class="app-header">
-    <h1><a href="{{ route('tasks.index') }}">📝 Task Manager</a></h1>
-    <nav>
-        <a href="{{ route('tasks.index') }}">Daftar Tugas</a>
-        <a href="{{ route('tasks.create') }}">Tambah Tugas</a>
-    </nav>
+    <div class="container">
+        <h1>
+            <a href="{{ route('tasks.index') }}">
+                <span>📝</span> Task Manager
+            </a>
+        </h1>
+        <nav>
+            <a href="{{ route('tasks.index') }}">Daftar</a>
+            <a href="{{ route('tasks.create') }}">+ Tambah</a>
+        </nav>
+    </div>
 </header>
 
 <main class="app-main">
+    <div class="container">
 
-    @if (session('success'))
-        <div class="alert-success">
-            ✅ {{ session('success') }}
-        </div>
-    @endif
+        @if (session('success'))
+            <div class="alert-success">
+                <span>✅</span>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
 
-    @yield('content')
+        @yield('content')
 
+    </div>
 </main>
 
 <footer class="app-footer">
-    <p>&copy; {{ date('Y') }} Task Manager — Latihan Laravel</p>
+    <div class="container">
+        <p>&copy; {{ date('Y') }} Task Manager — Dibuat dengan Laravel</p>
+    </div>
 </footer>
 
 </body>
